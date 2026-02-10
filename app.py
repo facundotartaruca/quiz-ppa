@@ -18,7 +18,7 @@ def cargar_datos():
 if 'indice' not in st.session_state:
     datos = cargar_datos()
     if datos:
-        st.session_state.preguntas = random.sample(datos, min(len(datos), 100))
+        st.session_state.preguntas = random.sample(datos, min(len(datos), 10))   ###
         st.session_state.indice = 0
         st.session_state.aciertos = 0
         st.session_state.respondido = False # Para saber si ya clickeó "Enviar"
@@ -32,8 +32,8 @@ if 'preguntas' in st.session_state and not st.session_state.finalizado:
     p = st.session_state.preguntas[idx]
 
     # Barra de progreso
-    st.progress((idx + 1) / 100)
-    st.write(f"Pregunta {idx + 1} de 100")
+    st.progress((idx + 1) / 10)        #####
+    st.write(f"Pregunta {idx + 1} de 10")        #####
     
     st.subheader(p["pregunta"])
 
@@ -75,7 +75,7 @@ elif st.session_state.get('finalizado'):
     st.metric("Puntaje Final", f"{nota}/100")
 
     # --- Lógica de Aprobación ---
-    if nota >= 80:
+    if nota >= 8:        #####
         st.success(f"### ✅ APROBADO")
         st.write(f"¡Excelente desempeño, piloto! Con **{nota}%** estás por encima del estándar requerido.")
     else:
@@ -87,4 +87,5 @@ elif st.session_state.get('finalizado'):
         # Limpiamos todo el estado para empezar de cero
         for key in list(st.session_state.keys()):
             del st.session_state[key]
+
         st.rerun()
